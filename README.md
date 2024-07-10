@@ -45,9 +45,9 @@ func main() {
 }
 ```
 
-### Automatically Detecting and Opening the Cash Drawer
+### Automatically Detecting and Opening the Cash Drawer (linux only)
 
-If you prefer the library to automatically detect the correct USB port, you can use the `NewAuto` function. (only work on udev compatible systems)
+If you prefer the library to automatically detect the correct USB port, you can use the `NewAuto` function.
 
 ```go
 package main
@@ -84,7 +84,7 @@ Creates a new `CashDrawer` instance with the specified serial port and baud rate
 - `port`: The serial port to which the cash drawer is connected (e.g., `/dev/ttyUSB0`).
 - `baud`: The baud rate for the serial communication (e.g., 9600).
 
-### `NewAuto() (*CashDrawer, error)`
+### `NewAuto() (*CashDrawer, error)` (linux only)
 
 Automatically detects the USB port connected to the cash drawer and initializes a new `CashDrawer` instance. This function scans the available USB devices and matches the correct one using predefined rules.
 
@@ -102,7 +102,7 @@ Closes the serial port connection to the cash drawer.
 
 This library depends on the following packages:
 
-- `github.com/citilinkru/libudev` - For scanning and detecting USB devices.
+- `github.com/citilinkru/libudev` - For scanning and detecting USB devices. (linux only)
 - `github.com/jacobsa/go-serial/serial` - For handling serial port communications.
 
 Make sure to include these dependencies in your project.
