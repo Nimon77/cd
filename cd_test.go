@@ -5,7 +5,10 @@ import (
 	"context"
 	"errors"
 	"io"
+	"os"
 	"testing"
+
+	"github.com/kr/pty"
 )
 
 // FixedSizeBuffer is a custom implementation of io.ReadWriteCloser
@@ -49,6 +52,15 @@ func (b *FixedSizeBuffer) Close() error {
 	return nil
 }
 
+// createMockPTY creates a mock PTY device and returns its paths.
+func createMockPTY(t *testing.T) (string, *os.File, *os.File) {
+	master, slave, err := pty.Open()
+	if err != nil {
+		t.Fatalf("failed to create PTY: %v", err)
+	}
+	return slave.Name(), master, slave
+}
+
 // TestCashDrawer_Open tests the CashDrawer Open method for successful operation.
 // It initializes a FixedSizeBuffer with sufficient size and verifies the output.
 func TestCashDrawer_Open(t *testing.T) {
@@ -86,13 +98,16 @@ func TestCashDrawer_Open_ShortWrite(t *testing.T) {
 
 // TestCashDrawer_Close tests the CashDrawer Close method.
 func TestCashDrawer_Close(t *testing.T) {
-	mockSerialPort := NewFixedSizeBuffer(64)
-	drawer := &CashDrawer{
-		Context:    context.Background(),
-		serialPort: mockSerialPort,
+	ptyPath, masterFile, slaveFile := createMockPTY(t)
+	defer masterFile.Close()
+	defer slaveFile.Close()
+
+	drawer, err := New(ptyPath, 9600)
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
 	}
 
-	err := drawer.Close()
+	err = drawer.Close()
 	if err != nil {
 		t.Fatalf("expected no error, got %v", err)
 	}
@@ -101,5 +116,21 @@ func TestCashDrawer_Close(t *testing.T) {
 	err = drawer.Close()
 	if err == nil {
 		t.Fatal("expected an error on second close, got nil")
+	}
+}
+
+// TestNew tests the New function.
+func TestNew(t *testing.T) {
+	ptyPath, masterFile, slaveFile := createMockPTY(t)
+	defer masterFile.Close()
+	defer slaveFile.Close()
+
+	drawer, err := New(ptyPath, 9600)
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+
+	if drawer.serialPort == nil {
+		t.Fatalf("expected serialPort to be initialized, got nil")
 	}
 }
