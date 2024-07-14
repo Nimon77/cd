@@ -8,6 +8,9 @@ import (
 	"github.com/citilinkru/libudev/matcher"
 )
 
+// NewAuto automatically detects the USB port connected to the cash drawer and initializes a new CashDrawer.
+// This function scans the available USB devices and matches the correct one using predefined rules.
+// Linux only.
 func NewAuto() (*CashDrawer, error) {
 	sc := libudev.NewScanner()
 	err, devices := sc.ScanDevices()
