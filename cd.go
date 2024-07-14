@@ -107,12 +107,9 @@ type CashDrawer struct {
 
 // Open sends the command to open the cash drawer. It writes the necessary bytes to the serial port to trigger the drawer to open.
 func (r *CashDrawer) Open(ctx context.Context) error {
-	i, err := io.WriteString(r.serialPort, "\x1B\x70\x00\x30")
+	_, err := io.WriteString(r.serialPort, "\x1B\x70\x00\x30")
 	if err != nil {
 		return err
-	}
-	if i != 4 {
-		return io.ErrShortWrite
 	}
 	return nil
 }

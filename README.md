@@ -112,7 +112,7 @@ type CashDrawer struct { ... }
 
 CashDrawer represents a cash drawer, with its serial port.
 
-#### func (*CashDrawer) [Close](/cd.go#L139)
+#### func (*CashDrawer) [Close](/cd.go#L136)
 
 ```go
 func (r *CashDrawer) Close() error
