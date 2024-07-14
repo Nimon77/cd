@@ -134,3 +134,11 @@ func TestNew(t *testing.T) {
 		t.Fatalf("expected serialPort to be initialized, got nil")
 	}
 }
+
+// TestNewInvalidPTY tests the New function.
+func TestNewInvalidPTY(t *testing.T) {
+	_, err := New("/dev/notExistingFile_3b3", 1337)
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+}
