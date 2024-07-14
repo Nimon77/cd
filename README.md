@@ -2,7 +2,9 @@
 
 # CashDrawer (cd)
 
+[![codecov](https://codecov.io/gh/Nimon77/cd/branch/master/graph/badge.svg)](https://codecov.io/gh/Nimon77/cd)
 [![GoDoc](https://pkg.go.dev/badge/pkgsite/pkg.svg)](https://pkg.go.dev/github.com/Nimon77/cd)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Nimon77/cd)](https://goreportcard.com/report/github.com/Nimon77/cd)
 
 cd is a Go library designed to interface with the "USB TRIGGER for CASH DRAWER" BT-100U. It simplifies the process of opening a cash drawer using Go code.
 
