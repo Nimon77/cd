@@ -83,3 +83,23 @@ func TestCashDrawer_Open_ShortWrite(t *testing.T) {
 		t.Fatalf("expected io.ErrShortWrite, got %v", err)
 	}
 }
+
+// TestCashDrawer_Close tests the CashDrawer Close method.
+func TestCashDrawer_Close(t *testing.T) {
+	mockSerialPort := NewFixedSizeBuffer(64)
+	drawer := &CashDrawer{
+		Context:    context.Background(),
+		serialPort: mockSerialPort,
+	}
+
+	err := drawer.Close()
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+
+	// Try closing again to check for error
+	err = drawer.Close()
+	if err == nil {
+		t.Fatal("expected an error on second close, got nil")
+	}
+}
