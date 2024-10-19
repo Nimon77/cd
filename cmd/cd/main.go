@@ -61,7 +61,7 @@ func main() {
 			if Version == "" {
 				fmt.Println("unknown version")
 			} else {
-				fmt.Println("cd v" + Version)
+				fmt.Println("cd " + Version)
 			}
 		},
 	}
