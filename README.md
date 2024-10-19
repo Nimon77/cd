@@ -4,7 +4,8 @@
 [![GoDoc](https://pkg.go.dev/badge/pkgsite/pkg.svg)](https://pkg.go.dev/github.com/Nimon77/cd)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Nimon77/cd)](https://goreportcard.com/report/github.com/Nimon77/cd)
 
-`cd` is a Go library designed to interface with the "USB TRIGGER for CASH DRAWER" BT-100U. It simplifies the process of opening a cash drawer using Go code.
+`cd` is a Go library designed to interface with the "USB TRIGGER for CASH DRAWER" BT-100U. It simplifies the process of opening a cash drawer using Go code.  
+A `cd` binary is also provided, to open the cash drawer directly from the command line.
 
 ## Installation
 
@@ -13,6 +14,13 @@ To use the `cd` library in your Go project, you need to install it using:
 ```sh
 go get github.com/Nimon77/cd
 ```
+
+To install the `cd` binary:
+
+```sh
+go install github.com/Nimon77/cd@latest
+```
+Usage help and completions are provided by the new `cd` command.
 
 ## Usage
 
